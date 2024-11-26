@@ -1,0 +1,19 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: cloudtunes
+spec:
+  clusterIP: None
+  ports:
+    - port: 5432
+---
+kind: Endpoints
+apiVersion: v1
+metadata:
+  name: cloudtunes
+subsets:
+  - addresses:
+      - ip: 34.32.5.172
+    ports:
+      - port: 5432
+        name: postgres

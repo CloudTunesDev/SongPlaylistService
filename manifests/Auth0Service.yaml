@@ -1,0 +1,40 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: auth0-service
+spec:
+  clusterIP: None
+  ports:
+    - port: 443
+---
+kind: Endpoints
+apiVersion: v1
+metadata:
+  name: auth0-service
+subsets:
+  - addresses:
+      - ip: 104.19.153.19
+    ports:
+      - port: 443
+        name: https
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: nginx-configuration
+  namespace: ingress-nginx
+data:
+  proxy-buffer-size: "256k"
+  large-client-header-buffers: "4 256k"
+  proxy_buffers: "512k"
+#---
+#apiVersion: v1
+#kind: Secret
+#metadata:
+#  name: auth0-secret
+#type: Opaque
+#data:
+#  clientId:
+#  clientSecret:
+#  audience:
+#  grantType: client_credentials

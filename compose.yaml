@@ -1,0 +1,50 @@
+#version: '3'
+#
+#services:
+#  cloudtunes_sps_database:
+#    image: postgres:16
+#    environment:
+#      POSTGRES_DB: songplaylistservice
+#      POSTGRES_USER: ash
+#      POSTGRES_PASSWORD: ashwashere
+#    ports:
+#      - "5432:5432"
+#    networks:
+#      - cloudtunes-sps-net
+#    restart: unless-stopped
+#
+#  cloudtunes_sps_backend:
+#    build:
+#      context: ./
+#      dockerfile: Dockerfile
+#    ports:
+#      - "8080:8080"
+#    depends_on:
+#      - cloudtunes_sps_database
+#    environment:
+#      SPRING_DATASOURCE_URL: jdbc:postgresql://cloudtunes_sps_database:5432/postgres
+#      SPRING_DATASOURCE_USERNAME: ash
+#      SPRING_DATASOURCE_PASSWORD: ashwashere
+#    networks:
+#      - cloudtunes-sps-net
+#    restart: unless-stopped
+#
+#
+##  xtrack_frontend:
+##    build:
+##      context: ../../xtrack-frontend/xtrack-frontend
+##      dockerfile: Dockerfile
+##    ports:
+##      - "3000:3000"
+##    networks:
+##      - xtrack_network
+##    depends_on:
+##      - xtrack_backend
+##    restart: unless-stopped
+#
+#
+#networks:
+#  cloudtunes-sps-net:
+#    driver: bridge
+#
+#

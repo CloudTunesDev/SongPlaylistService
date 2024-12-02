@@ -54,6 +54,37 @@ dependencies {
 	runtimeOnly 'org.postgresql:postgresql'
 }
 
+plugins {
+	id "org.sonarqube" version "3.5.0.2730"
+}
+
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+tasks.register("buildForMac") {
+	group = "build"
+	description = "Builds the application for both ARM64 and x86_64 architectures on macOS."
+
+	doLast {
+		def outputDir = file("$buildDir/mac-build")
+		outputDir.mkdirs()
+
+		def architectures = ["x86_64", "arm64"]
+		architectures.each { arch ->
+			def output = file("${outputDir}/mac-${arch}")
+			output.mkdirs()
+
+			println "Building for macOS $arch..."
+			exec {
+				workingDir = projectDir
+				commandLine = [
+						"javac", "-d", output, "-source", "17", "-target", "17",
+				]
+				environment("ARCH", arch)
+			}
+		}
+
+		println "Build complete. Output available in $outputDir."
+	}
 }

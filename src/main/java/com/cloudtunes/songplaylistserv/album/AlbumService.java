@@ -33,16 +33,16 @@ public class AlbumService {
                 .collect(Collectors.toList());
     }
 
-//    public List<AlbumDTO> getAllUserAlbums(long userId) {
-//        Iterable<Album> albums = albumRepository.findByUserId(userId);
-//        return StreamSupport.stream(albums.spliterator(), false)
-//                .map(AlbumConverter::ToAlbumDTO)
-//                .collect(Collectors.toList());
-//    }
+    public List<AlbumDTO> getAllUserAlbums(long userId) {
+        Iterable<Album> albums = albumRepository.findByUserId(userId);
+        return StreamSupport.stream(albums.spliterator(), false)
+                .map(AlbumConverter::ToAlbumDTO)
+                .collect(Collectors.toList());
+    }
 
-//    public Long getCountedUserAlbums(Long userId) {
-//        return albumRepository.countAllAlbumsByUserId(userId);
-//    }
+    public Long getCountedUserAlbums(Long userId) {
+        return albumRepository.countAllAlbumsByUserId(userId);
+    }
 
     // Post
     public AlbumDTO saveAlbum(AlbumDTO albumDTO) {

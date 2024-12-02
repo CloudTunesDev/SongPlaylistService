@@ -1,5 +1,6 @@
 package com.cloudtunes.songplaylistserv.album;
 
+import com.cloudtunes.songplaylistserv.user.User;
 import jakarta.annotation.security.RolesAllowed;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -42,7 +43,7 @@ public class AlbumController {
 //    @GetMapping("/userAlbumCount")
 //    public ResponseEntity<Long> getUserAlbumCount(@RequestHeader("Authorization") String token) {
 //        try {
-//            //User currentUser = User.builder().id(accessToken.getUserId()).build();
+//            User currentUser = User.builder().id(accessToken.getUserId()).build();
 //            return ResponseEntity.ok(albumService.getCountedUserAlbums(currentUser.getId()));
 //        } catch (Exception e) {
 //            return ResponseEntity.badRequest().build();

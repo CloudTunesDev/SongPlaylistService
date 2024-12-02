@@ -17,8 +17,8 @@ public interface AlbumRepository extends CrudRepository<Album, Long> {
 
     List<Album> findByYear(int year);
 
-//    List<Album> findByUserId(Long userId);
+    List<Album> findByUserId(Long userId);
 
-//    @Query("SELECT COUNT(a) FROM Album a WHERE a.user.id = :userId")
-//    Long countAllAlbumsByUserId(@Param("userId") Long userId);
+    @Query("SELECT COUNT(a) FROM Album a WHERE a.user.id = :userId")
+    Long countAllAlbumsByUserId(@Param("userId") Long userId);
 }

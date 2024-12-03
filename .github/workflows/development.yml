@@ -101,7 +101,7 @@ jobs:
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-      run: ./gradlew build sonar --info -x test -Dsonar.projectKey=${{ secrets.SONAR_PROJECTKEY }} -Dsonar.organization=${{ secrets.SONAR_ORGANIZATIONKEY }} -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} --warning-mode all --debug
+      run: ./gradlew build sonar --info -x test -Dsonar.projectKey=${{ secrets.SONAR_PROJECTKEY }} -Dsonar.organization=${{ secrets.SONAR_ORGANIZATIONKEY }} -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} --warning-mode all
 
 
       

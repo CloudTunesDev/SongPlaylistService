@@ -26,9 +26,9 @@ repositories {
 
 sonar {
 	properties {
-		property("sonar.projectKey", PROJECT_KEY)
-		property("sonar.organization", ORGANIZATION_KEY)
-		property("sonar.host.url", HOST_URL)
+		property("sonar.projectKey", "PROJECT_KEY")
+		property("sonar.organization", "ORGANIZATION_KEY")
+		property("sonar.host.url", "HOST_URL")
 	}
 
 	dependencies {

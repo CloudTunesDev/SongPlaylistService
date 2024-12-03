@@ -39,3 +39,5 @@ out/
 ./database_configs/
 ./src/main/resources/application.properties
 ./manifests/
+
+gradle.properties

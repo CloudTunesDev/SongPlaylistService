@@ -24,12 +24,11 @@ repositories {
 	mavenCentral()
 }
 
-
 sonar {
 	properties {
-		property("sonar.projectKey", "SongPlaylistService")
-		property("sonar.organization", "CloudTunes")
-		property("sonar.host.url", "https://sonarcloud.io")
+		property("sonar.projectKey", PROJECT_KEY)
+		property("sonar.organization", ORGANIZATION_KEY)
+		property("sonar.host.url", HOST_URL)
 	}
 
 	dependencies {

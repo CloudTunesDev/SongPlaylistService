@@ -1,6 +1,7 @@
 package com.cloudtunes.songplaylistserv.album;
 
 import com.cloudtunes.songplaylistserv.song.Song;
+import com.cloudtunes.songplaylistserv.user.User;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -23,11 +24,11 @@ public class Album {
     private int year;
     private String genre;
 
-//    @ManyToOne
-//    @JoinColumn(name = "user_id")
-//    @Getter
-//    @Setter
-//    private User user;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @Getter
+    @Setter
+    private User user;
 
     @OneToMany(mappedBy = "album", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Song> songs;

@@ -24,65 +24,74 @@ repositories {
 	mavenCentral()
 }
 
-dependencies {
-	//Implementations
-	implementation 'com.google.code.findbugs:jsr305:3.0.2'
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.springframework.boot:spring-boot-starter-validation'
-	implementation 'org.springframework.boot:spring-boot-starter-security'
-	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0'
-	implementation 'org.springframework.boot:spring-boot-starter-websocket'
-	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
-	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
-	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
-	testImplementation 'org.projectlombok:lombok'
-	testImplementation 'org.apache.httpcomponents.client5:httpclient5'
-	implementation 'org.modelmapper:modelmapper:2.4.4'
 
-	//Compile only
-	compileOnly 'org.projectlombok:lombok'
+sonar {
+	properties {
+		property("sonar.projectKey", "SongPlaylistService")
+		property("sonar.organization", "CloudTunes")
+		property("sonar.host.url", "https://sonarcloud.io")
+	}
 
+	dependencies {
+		//Implementations
+		implementation 'com.google.code.findbugs:jsr305:3.0.2'
+		implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+		implementation 'org.springframework.boot:spring-boot-starter-web'
+		implementation 'org.springframework.boot:spring-boot-starter-validation'
+		implementation 'org.springframework.boot:spring-boot-starter-security'
+		implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0'
+		implementation 'org.springframework.boot:spring-boot-starter-websocket'
+		implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+		runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
+		runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+		testImplementation 'org.projectlombok:lombok'
+		testImplementation 'org.apache.httpcomponents.client5:httpclient5'
+		implementation 'org.modelmapper:modelmapper:2.4.4'
 
-	//Annotation processor
-	annotationProcessor 'org.projectlombok:lombok'
-
-	//Test
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'org.springframework.security:spring-security-test'
-
-	//Database
-	runtimeOnly 'org.postgresql:postgresql'
-}
+		//Compile only
+		compileOnly 'org.projectlombok:lombok'
 
 
-tasks.named('test') {
-	useJUnitPlatform()
-}
+		//Annotation processor
+		annotationProcessor 'org.projectlombok:lombok'
 
-tasks.register("buildForMac") {
-	group = "build"
-	description = "Builds the application for both ARM64 and x86_64 architectures on macOS."
+		//Test
+		testImplementation 'org.springframework.boot:spring-boot-starter-test'
+		testImplementation 'org.springframework.security:spring-security-test'
 
-	doLast {
-		def outputDir = file("$buildDir/mac-build")
-		outputDir.mkdirs()
+		//Database
+		runtimeOnly 'org.postgresql:postgresql'
+	}
 
-		def architectures = ["x86_64", "arm64"]
-		architectures.each { arch ->
-			def output = file("${outputDir}/mac-${arch}")
-			output.mkdirs()
 
-			println "Building for macOS $arch..."
-			exec {
-				workingDir = projectDir
-				commandLine = [
-						"javac", "-d", output, "-source", "17", "-target", "17",
-				]
-				environment("ARCH", arch)
+	tasks.named('test') {
+		useJUnitPlatform()
+	}
+
+	tasks.register("buildForMac") {
+		group = "build"
+		description = "Builds the application for both ARM64 and x86_64 architectures on macOS."
+
+		doLast {
+			def outputDir = file("$buildDir/mac-build")
+			outputDir.mkdirs()
+
+			def architectures = ["x86_64", "arm64"]
+			architectures.each { arch ->
+				def output = file("${outputDir}/mac-${arch}")
+				output.mkdirs()
+
+				println "Building for macOS $arch..."
+				exec {
+					workingDir = projectDir
+					commandLine = [
+							"javac", "-d", output, "-source", "17", "-target", "17",
+					]
+					environment("ARCH", arch)
+				}
 			}
-		}
 
-		println "Build complete. Output available in $outputDir."
+			println "Build complete. Output available in $outputDir."
+		}
 	}
 }

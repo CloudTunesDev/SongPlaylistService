@@ -1,0 +1,12 @@
+# Create environment
+FROM --platform=linux/amd64 openjdk:17-jdk-slim as build
+WORKDIR /app
+
+# Copy the project files
+COPY gradlew ./
+COPY gradle ./gradle
+COPY build.gradle settings.gradle ./
+COPY src ./src
+
+# Build the project (+ exclude tests)
+RUN ./gradlew build -x test

@@ -1,24 +1,24 @@
 package com.cloudtunes.songplaylistserv.album.unit;
 
-import com.cloudtunes.songplaylistserv.album.Album;
-import com.cloudtunes.songplaylistserv.album.AlbumDTO;
-import com.cloudtunes.songplaylistserv.album.AlbumRepository;
-import com.cloudtunes.songplaylistserv.album.AlbumService;
-import com.cloudtunes.songplaylistserv.song.SongRepository;
-import com.cloudtunes.songplaylistserv.user.UserService;
-import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.springframework.boot.test.context.SpringBootTest;
+import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import com.cloudtunes.songplaylistserv.album.Album;
+import com.cloudtunes.songplaylistserv.album.AlbumDTO;
+import com.cloudtunes.songplaylistserv.album.AlbumRepository;
+import com.cloudtunes.songplaylistserv.album.AlbumService;
+import com.cloudtunes.songplaylistserv.song.Song;
+import com.cloudtunes.songplaylistserv.song.SongRepository;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 class AlbumServiceUnitTests {
 
     @Mock
@@ -26,9 +26,6 @@ class AlbumServiceUnitTests {
 
     @Mock
     private SongRepository songRepository;
-
-    @Mock
-    private UserService userService;
 
     @InjectMocks
     private AlbumService albumService;
@@ -157,20 +154,21 @@ class AlbumServiceUnitTests {
         verify(albumRepository, never()).save(any());
     }
 
-//    @Disabled
-//    @Test
-//    void deleteAlbum_ValidId_DeletesAlbum() {
-//        // Arrange
-//        Long albumId = 1L;
-//
-//        // Act
-//        albumService.deleteAlbum(albumId);
-//
-//        // Assert
-//        verify(songRepository, times(1)).findByAlbumId(albumId);
-//        verify(songRepository, times(2)).deleteById(any());
-//        verify(albumRepository, times(1)).deleteById(albumId);
-//    }
+    @Test
+    void deleteAlbum_ValidId_DeletesAlbum() {
+        // Arrange
+        Long albumId = 1L;
+        List<Song> songs = createSampleSongsList();
+        when(songRepository.findByAlbumId(albumId)).thenReturn(songs);
+
+        // Act
+        albumService.deleteAlbum(albumId);
+
+        // Assert
+        verify(songRepository, times(1)).findByAlbumId(albumId);
+        verify(songRepository, times(2)).deleteById(any());
+        verify(albumRepository, times(1)).deleteById(albumId);
+    }
 
     // Helper methods for creating sample data
     private AlbumDTO createSampleAlbumDTO() {
@@ -197,5 +195,13 @@ class AlbumServiceUnitTests {
 
     private Iterable<Album> createSampleAlbumsIterable() {
         return List.of(createSampleAlbum(), createSampleAlbum());
+    }
+
+    private List<Song> createSampleSongsList() {
+        Song song1 = new Song();
+        song1.setId(1L);
+        Song song2 = new Song();
+        song2.setId(2L);
+        return List.of(song1, song2);
     }
 }

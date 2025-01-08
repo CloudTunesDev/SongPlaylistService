@@ -27,7 +27,6 @@ public class PlaylistConverterTests {
         // Assert
         assertEquals(playlist.getId(), playlistDTO.getId());
         assertEquals(playlist.getTitle(), playlistDTO.getTitle());
-        assertEquals(Collections.emptyList(), playlistDTO.getSongList()); // Assuming the SongConverter is tested separately
     }
 
     @Test

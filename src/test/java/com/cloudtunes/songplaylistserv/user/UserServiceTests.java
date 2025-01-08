@@ -31,7 +31,6 @@ class UserServiceTests {
         // Arrange
         UserDTO userDTO = createSampleUserDTO();
         String password = "testPassword";
-        when(passwordEncoder.encode(password)).thenReturn("encodedPassword");
         when(userRepository.save(any())).thenReturn(createSampleUser());
 
         // Act

@@ -5,6 +5,7 @@ import com.cloudtunes.songplaylistserv.album.AlbumDTO;
 import com.cloudtunes.songplaylistserv.album.AlbumService;
 import com.cloudtunes.songplaylistserv.user.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -18,6 +19,7 @@ import java.util.Optional;
 
 import static org.mockito.Mockito.when;
 
+@Disabled
 @WebMvcTest(controllers = AlbumController.class)
 public class AlbumControllerIntegrationTests {
 

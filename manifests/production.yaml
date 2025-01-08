@@ -1,0 +1,44 @@
+name: Production
+
+on:
+  push:
+    branches: [ 'main' ]
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout branch
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Java environment
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin' # Use Temurin JDK distribution
+          java-version: '17'      # Use JDK 17 or specify your required version
+
+      # Step 3: Cache Gradle dependencies
+      - name: Cache Gradle dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.gradle/caches
+          key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            gradle-${{ runner.os }}-
+
+      # Step 4: Verify Gradle wrapper
+      - name: Verify Gradle Wrapper
+        run: ./gradlew wrapper --gradle-version=8.1.1 # Replace with the required Gradle version
+
+      # Step 5: Build the project
+      - name: Build project
+        run: ./gradlew build
+
+      # Step 6: Run tests (optional)
+      - name: Run tests
+        run: ./gradlew test

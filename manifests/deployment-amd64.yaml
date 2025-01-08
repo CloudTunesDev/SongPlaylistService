@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: content-deployment
+  labels:
+    app: cloudtunes-sps
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 100%
+  selector:
+    matchLabels:
+      app: content-pod
+  template:
+    metadata:
+      labels:
+        app: content-pod
+    spec:
+      containers:
+        - name: content-pod
+          image: ashsnep/cloudtunes-sps:amd
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 8080
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "2048Mi"
+            limits:
+              cpu: "750m"
+              memory: "5046Mi"
+      terminationGracePeriodSeconds: 1

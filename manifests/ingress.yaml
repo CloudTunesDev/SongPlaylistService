@@ -7,10 +7,10 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: dragonhusband.uwu
+    - host: dragonenjoyer.yes
       http:
         paths:
-          - path: /api/content
+          - path: /
             pathType: Prefix
             backend:
               service:

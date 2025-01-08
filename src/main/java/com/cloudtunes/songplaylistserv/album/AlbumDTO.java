@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import com.cloudtunes.songplaylistserv.user.User;
 
 import java.util.List;
 
@@ -25,6 +26,6 @@ public class AlbumDTO {
     private int year;
     @Valid
     private String genre;
-    //    private User user;
+    private User user;
     private List<SongDTO> songs;
 }

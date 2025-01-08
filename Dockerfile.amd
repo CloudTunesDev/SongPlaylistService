@@ -1,5 +1,5 @@
 # Create environment
-FROM --platform=linux/amd64 openjdk:17-jdk-slim as build
+FROM --platform=linux/amd64 openjdk:17-jdk-slim AS build
 WORKDIR /app
 
 # Copy the project files

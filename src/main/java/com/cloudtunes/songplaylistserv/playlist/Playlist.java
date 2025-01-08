@@ -1,5 +1,6 @@
 package com.cloudtunes.songplaylistserv.playlist;
 
+import com.cloudtunes.songplaylistserv.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -20,10 +21,10 @@ public class Playlist {
     @Column(name = "title")
     private String title;
 
-//    @ManyToOne
-//    @JoinColumn(name = "user_id")
-//    @Getter
-//    @Setter
-//    private User user;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @Getter
+    @Setter
+    private User user;
 
 }

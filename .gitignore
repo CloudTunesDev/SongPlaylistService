@@ -39,5 +39,6 @@ out/
 ./database_configs/
 ./src/main/resources/application.properties
 ./manifests/
-
+/manifests
 gradle.properties
+.DS_Store

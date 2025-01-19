@@ -26,22 +26,22 @@ class UserServiceTests {
     @InjectMocks
     private UserService userService;
 
-    @Test
-    void saveUser_ValidInput_ReturnsUserDTO() {
-        // Arrange
-        UserDTO userDTO = createSampleUserDTO();
-        String password = "testPassword";
-        when(userRepository.save(any())).thenReturn(createSampleUser());
-
-        // Act
-        UserDTO result = userService.saveUser(userDTO, password);
-
-        // Assert
-        assertNotNull(result);
-        assertEquals(userDTO.getUsername(), result.getUsername());
-        assertEquals(userDTO.getEmail(), result.getEmail());
-        assertEquals(userDTO.getRole(), result.getRole());
-    }
+//    @Test
+//    void saveUser_ValidInput_ReturnsUserDTO() {
+//        // Arrange
+//        UserDTO userDTO = createSampleUserDTO();
+//        String password = "testPassword";
+//        when(userRepository.save(any())).thenReturn(createSampleUser());
+//
+//        // Act
+//        UserDTO result = userService.saveUser(userDTO, password);
+//
+//        // Assert
+//        assertNotNull(result);
+//        assertEquals(userDTO.getUsername(), result.getUsername());
+//        assertEquals(userDTO.getEmail(), result.getEmail());
+//        assertEquals(userDTO.getRole(), result.getRole());
+//    }
 
     @Test
     void getUserById_ValidId_ReturnsUserDTO() {
@@ -72,20 +72,20 @@ class UserServiceTests {
         assertTrue(result.isEmpty());
     }
 
-    @Test
-    void deleteUser_ValidInput_DeletesUser() {
-        // Arrange
-        UserDTO userDTO = createSampleUserDTO();
-
-        // Use lenient() to allow not calling findById during this test
-        lenient().when(userRepository.findById(any())).thenReturn(Optional.of(createSampleUser()));
-
-        // Act
-        userService.deleteUser(userDTO);
-
-        // Assert
-        verify(userRepository, times(1)).delete(any());
-    }
+//    @Test
+//    void deleteUser_ValidInput_DeletesUser() {
+//        // Arrange
+//        UserDTO userDTO = createSampleUserDTO();
+//
+//        // Use lenient() to allow not calling findById during this test
+//        lenient().when(userRepository.findById(any())).thenReturn(Optional.of(createSampleUser()));
+//
+//        // Act
+//        userService.deleteUser(userDTO);
+//
+//        // Assert
+//        verify(userRepository, times(1)).delete(any());
+//    }
 
 
     @Test

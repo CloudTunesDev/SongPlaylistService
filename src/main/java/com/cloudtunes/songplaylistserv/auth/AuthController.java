@@ -17,8 +17,8 @@ import java.util.concurrent.TimeUnit;
 @RequestMapping("/api/auth")
 public class AuthController {
 
-    private static final String AUTH0_DOMAIN = "https://<your-auth0-domain>.auth0.com/";
-    private static final String AUTH0_AUDIENCE = "https://<your-api-audience>";
+    private static final String AUTH0_DOMAIN = "http://cloudtunes.io";
+    private static final String AUTH0_AUDIENCE = "https://cloudtunes.io/api";
 
     @PostMapping("/verify-token")
     public ResponseEntity<String> verifyToken(@RequestHeader("Authorization") String authorizationHeader) {

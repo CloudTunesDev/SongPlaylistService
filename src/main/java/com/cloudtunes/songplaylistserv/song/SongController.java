@@ -1,6 +1,7 @@
 package com.cloudtunes.songplaylistserv.song;
 
 import com.cloudtunes.songplaylistserv.album.AlbumDTO;
+import com.cloudtunes.songplaylistserv.user.User;
 import jakarta.annotation.security.RolesAllowed;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,20 +34,20 @@ public class SongController {
         return ResponseEntity.ok(songService.getSongById(id));
     }
 
-    @RolesAllowed({"ADMIN", "MEMBER"})
-    @PostMapping()
-    public ResponseEntity<AlbumDTO> addSong(@RequestBody AlbumDTO albumDTO, @RequestHeader("Authorization") String token) {
-        //TODO: Add user validation
-        //AccessToken accessToken = accessTokenEncoderDecoder.decode(token.replace("Bearer ", ""));
-        //albumDTO.setUser(User.builder().id(accessToken.getUserId()).build());
-        return ResponseEntity.ok(songService.saveSong(albumDTO));
-    }
+//    @RolesAllowed({"ADMIN", "MEMBER"})
+//    @PostMapping()
+//    public ResponseEntity<AlbumDTO> addSong(@RequestBody AlbumDTO albumDTO, @RequestHeader("Authorization") String token) {
+//        //TODO: Add user validation
+//        //AccessToken accessToken = accessTokenEncoderDecoder.decode(token.replace("Bearer ", ""));
+//        //albumDTO.setUser(User.builder().id(accessToken.getUserId()).build());
+//        return ResponseEntity.ok(songService.saveSong(albumDTO));
+//    }
 
 //    @RolesAllowed({"ADMIN", "MEMBER"})
 //    @PutMapping()
 //    public ResponseEntity<Optional<AlbumDTO>> updateSong(@RequestBody AlbumDTO albumDTO, @RequestHeader("Authorization") String token) {
 //        //TODO: Add user validation
-//        AccessToken accessToken = accessTokenEncoderDecoder.decode(token.replace("Bearer ", ""));
+//       // AccessToken accessToken = accessTokenEncoderDecoder.decode(token.replace("Bearer ", ""));
 //        albumDTO.setUser(User.builder().id(accessToken.getUserId()).build());
 //        Optional<AlbumDTO> update = songService.updateSong(albumDTO);
 //        if (update.isEmpty()) {
@@ -59,7 +60,7 @@ public class SongController {
 //    @DeleteMapping()
 //    public ResponseEntity deleteSong(@RequestParam Long id, @RequestHeader("Authorization") String token) {
 //        //TODO: Add user validation
-//        AccessToken accessToken = accessTokenEncoderDecoder.decode(token.replace("Bearer ", ""));
+//        //AccessToken accessToken = accessTokenEncoderDecoder.decode(token.replace("Bearer ", ""));
 //        songService.deleteSong(id);
 //        return ResponseEntity.ok().build();
 //    }

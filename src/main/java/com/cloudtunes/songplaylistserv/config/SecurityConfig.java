@@ -1,4 +1,4 @@
-package com.cloudtunes.songplaylistserv.test;
+package com.cloudtunes.songplaylistserv.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,6 +16,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
                                 .requestMatchers("/test/**").permitAll() // Allow all connections to /test
+                                .requestMatchers("/album/**").permitAll() // Allow all connections to /album
+                                .requestMatchers("/playlist/**").permitAll() // Allow all connections to /playlist
+                                .requestMatchers("/song/**").permitAll() // Allow all connections to /song
+                                .requestMatchers("/user/**").permitAll() // Allow all connections to /user
                                 .anyRequest().authenticated()
                 )
                 .csrf(csrf -> csrf.disable()) // Disable CSRF protection if not needed

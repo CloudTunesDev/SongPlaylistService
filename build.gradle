@@ -40,6 +40,7 @@ sonar {
 		implementation 'org.springframework.boot:spring-boot-starter-security'
 		implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0'
 		implementation 'org.springframework.boot:spring-boot-starter-websocket'
+		implementation 'com.google.cloud:google-cloud-storage:2.27.0'
 		implementation 'com.auth0:java-jwt:4.4.0'
 		implementation 'com.auth0:jwks-rsa:0.22.0'
 		implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
@@ -48,10 +49,11 @@ sonar {
 		testImplementation 'org.projectlombok:lombok'
 		testImplementation 'org.apache.httpcomponents.client5:httpclient5'
 		implementation 'org.modelmapper:modelmapper:2.4.4'
+		implementation 'org.springframework.boot:spring-boot-starter-amqp'
+		implementation 'com.rabbitmq:amqp-client:5.24.0'
 
 		//Compile only
 		compileOnly 'org.projectlombok:lombok'
-
 
 		//Annotation processor
 		annotationProcessor 'org.projectlombok:lombok'

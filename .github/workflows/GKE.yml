@@ -1,0 +1,61 @@
+name: Production
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  PROJECT_ID: ${{ secrets.GKE_PROJECT }}
+  GKE_CLUSTER: cloudtunes    # Add your cluster name here.
+  GKE_ZONE: europe-west1   # Add your cluster zone here.
+  DEPLOYMENT_NAME: content-deployment # Add your deployment name here.
+  IMAGE: cloudtunes-sps:amd
+  GITHUB_SHA: ${{ github.sha }}
+
+jobs:
+  setup-build-publish-deploy:
+    name: Setup, Build, Publish, and Deploy
+    runs-on: ubuntu-latest
+    environment: Development
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+        
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    # Build the Docker image
+    - name: Build
+      run:  docker buildx build -t ${{ secrets.DOCKER_USERNAME }}/cloudtunes-sps:amd --platform linux/amd64 --build-arg "TARGETARCH=amd64" -f Dockerfile --push .
+
+    - name: Login at GKE
+      uses: google-github-actions/auth@v2
+      with:
+        credentials_json: ${{ secrets.GKE_SA_KEY }}
+
+    # Setup gcloud CLI
+    - uses: google-github-actions/setup-gcloud@v2
+
+    # Get the GKE credentials so we can deploy to the cluster
+    - uses: google-github-actions/get-gke-credentials@v2
+      with:
+        cluster_name: ${{ env.GKE_CLUSTER }}
+        location: ${{ env.GKE_ZONE }}
+        
+   # Deploy the Docker image to the GKE cluster
+    - name: Deploy
+      run: |-
+        kubectl apply -f manifests/horizontalpodautoscaler.yaml
+        kubectl apply -f manifests/deployment.yaml
+        kubectl apply -f manifests/service.yaml
+        kubectl apply -f manifests/backendconfig.yaml
+        kubectl rollout status deployment/${{ env.DEPLOYMENT_NAME }}
+        kubectl get all

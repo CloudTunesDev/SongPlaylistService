@@ -34,7 +34,7 @@ jobs:
       uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
 
     - name: Build with Gradle Wrapper
-      run: ./gradlew build -x test
+      run: ./gradlew build
 
     # NOTE: The Gradle Wrapper is the default and recommended way to run Gradle (https://docs.gradle.org/current/userguide/gradle_wrapper.html).
     # If your project does not have the Gradle Wrapper configured, you can use the following configuration to run Gradle with a specified version.
@@ -99,7 +99,7 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-        run: ./gradlew build sonar --info -x test -Dsonar.projectKey=${{ secrets.SONAR_PROJECTKEY }} -Dsonar.organization=${{ secrets.SONAR_ORGANIZATIONKEY }} -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} --warning-mode all
+        run: ./gradlew build sonar --info -Dsonar.projectKey=${{ secrets.SONAR_PROJECTKEY }} -Dsonar.organization=${{ secrets.SONAR_ORGANIZATIONKEY }} -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} --warning-mode all
 
 
       
